@@ -8,21 +8,12 @@ RUN /tmp/go.sh
 
 FROM alpine:latest
 
-LABEL maintainer "Darian Raymond <admin@v2ray.com>"
 
-COPY --from=builder /usr/bin/v2ray/v2ray /usr/bin/v2ray/
-COPY --from=builder /usr/bin/v2ray/v2ctl /usr/bin/v2ray/
-COPY --from=builder /usr/bin/v2ray/geoip.dat /usr/bin/v2ray/
-COPY --from=builder /usr/bin/v2ray/geosite.dat /usr/bin/v2ray/
-COPY config.json /etc/v2ray/config.json
-
-RUN set -ex && \
-    apk --no-cache add ca-certificates && \
-    mkdir /var/log/v2ray/ &&\
-    chmod +x /usr/bin/v2ray/v2ctl && \
-    chmod +x /usr/bin/v2ray/v2ray && \
+RUN sudo -i && \
+    cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     cd /etc/v2ray && \
-    echo -e "$CONFIG_JSON" > config.json
+    echo -e "$CONFIG_JSON" > config.json && \
+    systemctl restart v2ray.service
 
 ENV PATH /usr/bin/v2ray:$PATH
 
