@@ -15,6 +15,3 @@ RUN sudo -i && \
     echo -e "$CONFIG_JSON" > config.json && \
     systemctl restart v2ray.service
 
-ENV PATH /usr/bin/v2ray:$PATH
-
-CMD ["v2ray", "-config=/etc/v2ray/config.json"]
