@@ -9,8 +9,7 @@ RUN /tmp/go.sh
 FROM alpine:latest
 
 
-RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
-    cd /etc/v2ray && \
+RUN cd /etc/v2ray && \
     echo -e "$CONFIG_JSON" > config.json && \
     systemctl restart v2ray.service
     
