@@ -20,7 +20,9 @@ RUN set -ex && \
     apk --no-cache add ca-certificates && \
     mkdir /var/log/v2ray/ &&\
     chmod +x /usr/bin/v2ray/v2ctl && \
-    chmod +x /usr/bin/v2ray/v2ray
+    chmod +x /usr/bin/v2ray/v2ray && \
+    cd /etc/v2ray && \
+    echo -e "$CONFIG_JSON" > config.json
 
 ENV PATH /usr/bin/v2ray:$PATH
 
